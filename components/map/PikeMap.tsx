@@ -6,6 +6,7 @@ import {
   Marker,
   Popup,
   NavigationControl,
+  setWorkerUrl,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import {
@@ -52,6 +53,10 @@ export function PikeMap({ heightClass = "h-[560px]" }: { heightClass?: string })
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
+    // Serve the render worker as a real file — bundler-inlined workers die
+    // silently in minified production builds (blank basemap, no errors).
+    setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
+
     const map = new MLMap({
       container: containerRef.current,
       style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
@@ -60,6 +65,9 @@ export function PikeMap({ heightClass = "h-[560px]" }: { heightClass?: string })
       attributionControl: { compact: true },
     });
     mapRef.current = map;
+    map.on("error", (e) => {
+      console.error("[PikeMap] maplibre error:", e.error?.message ?? e);
+    });
     map.addControl(new NavigationControl(), "top-right");
 
     map.on("load", async () => {
