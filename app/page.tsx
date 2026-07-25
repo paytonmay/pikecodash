@@ -29,8 +29,10 @@ import {
 } from "@/lib/data";
 import { TrendLine } from "@/components/charts/TrendLine";
 import { HBars } from "@/components/charts/HBars";
-import { PikeMap } from "@/components/map/PikeMap";
+import { PikeMap, focusMap } from "@/components/map/PikeMap";
+import { communityCentroids } from "@/lib/data";
 import { SystemsStrip } from "@/components/live/SystemsStrip";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { ClusterLabel, ProvenanceBadge, NeededList } from "@/components/ui";
 
 const fmtPop = (v: number) => `${Math.round(v / 1000)}k`;
@@ -57,16 +59,16 @@ export default function Home() {
     <main className="mx-auto w-full max-w-screen-2xl px-3 pb-16 sm:px-5">
       {/* ---- Command bar ---- */}
       <header className="sticky top-0 z-20 -mx-3 mb-4 border-b border-hairline bg-page/85 px-3 py-2.5 backdrop-blur sm:-mx-5 sm:px-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-3">
-            <span className="font-display text-sm font-semibold tracking-[0.2em] text-accent">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+          <div className="flex min-w-0 items-baseline gap-3">
+            <span className="shrink-0 font-display text-sm font-semibold tracking-[0.2em] text-accent">
               PIKE·CO<span className="text-ink-3">/DASH</span>
             </span>
-            <span className="hidden text-[11px] text-ink-3 md:inline">
+            <span className="hidden text-[11px] text-ink-3 lg:inline">
               Pike County, Kentucky · 787 mi² · pop. 58,669 (2020)
             </span>
           </div>
-          <nav className="hidden gap-4 text-[11px] uppercase tracking-wider text-ink-2 sm:flex">
+          <nav className="order-last flex w-full min-w-0 gap-4 overflow-x-auto whitespace-nowrap text-[11px] uppercase tracking-wider text-ink-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:order-none sm:w-auto [&::-webkit-scrollbar]:hidden">
             <a href="#ops" className="hover:text-accent">Ops</a>
             <a href="#initiatives" className="hover:text-accent">Initiatives</a>
             <a href="#map" className="hover:text-accent">Map</a>
@@ -75,13 +77,18 @@ export default function Home() {
             <a href="#health" className="hover:text-accent">Health</a>
             <a href="#water" className="hover:text-accent">Water</a>
             <a href="#civic" className="hover:text-accent">Civic</a>
+            <Link href="/about" className="hover:text-accent">About</Link>
           </nav>
-          <Link
-            href="/map"
-            className="rounded-sm border border-hairline-strong px-2.5 py-1 text-[11px] text-accent hover:bg-accent-dim"
-          >
-            Fullscreen map ↗
-          </Link>
+          <div className="flex shrink-0 items-center gap-2">
+            <ThemeToggle />
+            <Link
+              href="/map"
+              className="rounded-sm border border-hairline-strong px-2.5 py-1 text-[11px] text-accent hover:bg-accent-dim"
+            >
+              <span className="hidden sm:inline">Fullscreen map ↗</span>
+              <span className="sm:hidden">Map ↗</span>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -183,9 +190,9 @@ export default function Home() {
               <span
                 className={`rounded-sm border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${
                   init.status === "Completed"
-                    ? "border-[#006300]/40 text-[#006300]"
+                    ? "border-[var(--good-text)]/40 text-[var(--good-text)]"
                     : init.status === "Exploratory"
-                      ? "border-[#eda100]/60 text-[#9a6b00]"
+                      ? "border-[var(--warn-text)]/50 text-[var(--warn-text)]"
                       : "border-accent/40 text-accent"
                 }`}
               >
@@ -345,23 +352,35 @@ export default function Home() {
             Communities — population by ZIP area · ACS 2020–2024
           </CardLabel>
           <div className="grid grid-cols-2 gap-x-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-            {communityPops.map((c) => (
-              <div
-                key={c.zip}
-                className="flex items-baseline justify-between gap-2 border-b border-hairline py-1"
-              >
-                <span className="truncate text-xs text-ink-2">
-                  {c.name}
-                  <span className="ml-1 text-[10px] text-ink-3">{c.zip}</span>
-                </span>
-                <span
-                  className="text-xs font-medium"
-                  style={{ fontVariantNumeric: "tabular-nums" }}
+            {communityPops.map((c) => {
+              const cen = communityCentroids[c.zip];
+              return (
+                <button
+                  key={c.zip}
+                  onClick={() =>
+                    cen &&
+                    focusMap({
+                      ...cen,
+                      name: c.name,
+                      blurb: `${c.pop.toLocaleString()} people · ZIP-area (ACS 2020–24)`,
+                    })
+                  }
+                  className="flex items-baseline justify-between gap-2 border-b border-hairline py-1 text-left hover:bg-accent-dim"
+                  title="Show on map"
                 >
-                  {c.pop.toLocaleString()}
-                </span>
-              </div>
-            ))}
+                  <span className="truncate text-xs text-ink-2">
+                    {c.name}
+                    <span className="ml-1 text-[10px] text-ink-3">{c.zip}</span>
+                  </span>
+                  <span
+                    className="text-xs font-medium"
+                    style={{ fontVariantNumeric: "tabular-nums" }}
+                  >
+                    {c.pop.toLocaleString()}
+                  </span>
+                </button>
+              );
+            })}
           </div>
           <p className="mt-2 text-[11px] text-ink-3">
             ZIP tabulation areas overlap city limits — the Pikeville and
@@ -418,9 +437,13 @@ export default function Home() {
             {[...schools]
               .sort((a, b) => b.enrollment - a.enrollment)
               .map((s) => (
-                <div
+                <button
                   key={s.name}
-                  className="flex items-baseline justify-between gap-2 border-b border-hairline py-1"
+                  onClick={() =>
+                    focusMap({ lng: s.lng, lat: s.lat, name: s.name })
+                  }
+                  className="flex items-baseline justify-between gap-2 border-b border-hairline py-1 text-left hover:bg-accent-dim"
+                  title="Show on map"
                 >
                   <span className="truncate text-xs text-ink-2">
                     {s.name}
@@ -434,7 +457,7 @@ export default function Home() {
                   >
                     {s.enrollment > 0 ? s.enrollment.toLocaleString() : "ATC"}
                   </span>
-                </div>
+                </button>
               ))}
           </div>
           <p className="mt-2 text-[11px] text-ink-3">
@@ -512,7 +535,7 @@ export default function Home() {
       <div id="water" className="grid scroll-mt-16 gap-3 sm:grid-cols-2 xl:grid-cols-4">
         {watersheds.map((w) => (
           <div key={w.name} className="panel p-4">
-            <p className="font-display text-base font-semibold text-[#1c5cab]">
+            <p className="font-display text-base font-semibold text-[var(--water-text)]">
               {w.name}
             </p>
             <p className="mt-1.5 text-xs text-ink-2">{w.blurb}</p>
@@ -526,7 +549,7 @@ export default function Home() {
                 </span>
               ))}
             </div>
-            <p className="mt-2 text-[11px] text-[#b32d0f]">
+            <p className="mt-2 text-[11px] text-[var(--alert-text)]">
               Households on this fork: data needed
             </p>
           </div>
@@ -596,7 +619,7 @@ export default function Home() {
           <CardLabel>Next election</CardLabel>
           <p className="font-display text-2xl font-semibold">Nov 3, 2026</p>
           <p className="mt-1.5 text-xs text-ink-2">{elections.detail}</p>
-          <p className="mt-2 text-[11px] text-[#b32d0f]">
+          <p className="mt-2 text-[11px] text-[var(--alert-text)]">
             {elections.registeredVotersNote}
           </p>
         </div>
@@ -626,7 +649,7 @@ export default function Home() {
                 <td className="px-3 py-2 font-medium">{row.domain}</td>
                 <td className="px-3 py-2 text-ink-2">{row.have}</td>
                 <td className="px-3 py-2 text-ink-2">
-                  <ul className="list-disc space-y-0.5 pl-4 marker:text-[#e34948]">
+                  <ul className="list-disc space-y-0.5 pl-4 marker:text-[var(--alert-text)]">
                     {row.need.map((n) => (
                       <li key={n}>{n}</li>
                     ))}
@@ -640,7 +663,7 @@ export default function Home() {
 
       <footer className="mt-10 border-t border-hairline pt-4 text-center text-[11px] text-ink-3">
         <p>
-          Pike County Dashboard · an open civic data project ·{" "}
+          Pike County Dashboard · <a href="/about" className="text-accent hover:underline">about this project</a> ·{" "}
           <span className="text-accent">
             aiming to be the most progressive county in the country
           </span>{" "}

@@ -1104,3 +1104,150 @@ export const initiatives: Initiative[] = [
       "FY2026 strategy funding workforce, infrastructure, and entrepreneurship grants across Appalachian Kentucky — a primary source for county applications.",
   },
 ];
+
+// ZCTA centroids (Census 2024 Gazetteer) for the community-population dots.
+export const communityCentroids: Record<string, { lat: number; lng: number }> = {
+ "41501": {
+  lat: 37.507592,
+  lng: -82.518773
+ },
+ "41512": {
+  lat: 37.252442,
+  lng: -82.477729
+ },
+ "41513": {
+  lat: 37.352867,
+  lng: -82.343306
+ },
+ "41514": {
+  lat: 37.66891,
+  lng: -82.318529
+ },
+ "41519": {
+  lat: 37.583551,
+  lng: -82.323421
+ },
+ "41522": {
+  lat: 37.322137,
+  lng: -82.399515
+ },
+ "41524": {
+  lat: 37.433426,
+  lng: -82.234446
+ },
+ "41526": {
+  lat: 37.433707,
+  lng: -82.512566
+ },
+ "41528": {
+  lat: 37.554537,
+  lng: -82.139854
+ },
+ "41531": {
+  lat: 37.595067,
+  lng: -82.231322
+ },
+ "41534": {
+  lat: 37.277479,
+  lng: -82.496509
+ },
+ "41535": {
+  lat: 37.593691,
+  lng: -82.284236
+ },
+ "41538": {
+  lat: 37.303386,
+  lng: -82.588917
+ },
+ "41539": {
+  lat: 37.50263,
+  lng: -82.322298
+ },
+ "41540": {
+  lat: 37.394388,
+  lng: -82.342184
+ },
+ "41543": {
+  lat: 37.548341,
+  lng: -82.282267
+ },
+ "41544": {
+  lat: 37.595895,
+  lng: -82.173678
+ },
+ "41547": {
+  lat: 37.53812,
+  lng: -82.094543
+ },
+ "41548": {
+  lat: 37.374655,
+  lng: -82.250947
+ },
+ "41553": {
+  lat: 37.48058,
+  lng: -82.160286
+ },
+ "41554": {
+  lat: 37.430506,
+  lng: -82.335639
+ },
+ "41555": {
+  lat: 37.538125,
+  lng: -82.258921
+ },
+ "41557": {
+  lat: 37.486031,
+  lng: -82.410912
+ },
+ "41558": {
+  lat: 37.539514,
+  lng: -82.208198
+ },
+ "41559": {
+  lat: 37.380019,
+  lng: -82.390157
+ },
+ "41560": {
+  lat: 37.394197,
+  lng: -82.578727
+ },
+ "41562": {
+  lat: 37.401617,
+  lng: -82.473829
+ },
+ "41563": {
+  lat: 37.223732,
+  lng: -82.538565
+ },
+ "41564": {
+  lat: 37.604774,
+  lng: -82.366743
+ },
+ "41566": {
+  lat: 37.408303,
+  lng: -82.192085
+ },
+ "41567": {
+  lat: 37.56893,
+  lng: -82.286224
+ },
+ "41568": {
+  lat: 37.502786,
+  lng: -82.044361
+ },
+ "41571": {
+  lat: 37.626523,
+  lng: -82.44435
+ },
+ "41572": {
+  lat: 37.313398,
+  lng: -82.643705
+ }
+};
+
+// Watershed fork display colors (map tint + legend)
+export const forkColors: Record<string, { color: string; label: string }> = {
+  levisa: { color: "#2a78d6", label: "Levisa Fork basin" },
+  russell: { color: "#199e70", label: "Russell Fork basin" },
+  tug: { color: "#8a63d2", label: "Tug Fork basin" },
+};
