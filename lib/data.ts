@@ -407,14 +407,16 @@ export const dataLedger: {
 
 /* ---------------- Operator console (live + placeholder ops data) ---------------- */
 
-// Placeholder figures are deliberately round and always rendered with a
-// "data needed" badge — swap in real figures as they're sourced.
+// News-derived figures (WYMT Oct 2024 / Feb 2026): the county hauls
+// ~60,000 tons/yr; Ford Branch Landfill was reported ~3 years from capacity
+// in Oct 2024; a private landfill agreement was signed Feb 2026.
 export const landfill = {
-  weeklyIntakeTons: 850,
-  capacityUsedPct: 62,
-  remainingTons: null as number | null,
-  note: "Intake & capacity — Pike County Solid Waste (placeholder figures)",
-  provenance: "needed" as Provenance,
+  weeklyIntakeTons: 1150,
+  yearlyTons: 60000,
+  runwayElapsedPct: 60, // of the 3-yr runway reported Oct 2024
+  remainingNote: "≈16 months to capacity at Ford Branch (est.)",
+  note: "WYMT reporting · private landfill agreement signed Feb 2026 — official tonnage from Pike Co. Solid Waste will replace this",
+  provenance: "estimate" as Provenance,
 };
 
 export const diversion = [
@@ -464,12 +466,16 @@ export const educationOps = {
   provenance: "needed" as Provenance,
 };
 
-// USGS gauge + flood stage for the river card. Flood stage is a placeholder
-// threshold — verify against the NWS value for Levisa Fork at Pikeville.
+// USGS gauge + NWS flood stages for the river card — real values from
+// api.water.noaa.gov gauge PKYK2 (Levisa Fork at Pikeville).
 export const riverGauge = {
   station: "03209500",
+  nwsLid: "PKYK2",
   name: "Levisa Fork at Pikeville",
-  floodStageFt: 28,
+  floodStageFt: 35, // NWS "minor flood" stage
+  stages: { action: 28, minor: 35, moderate: 42, major: 50 },
+  recordCrestFt: 52.72,
+  recordCrestLabel: "record 52.7 ft — Jan 1957 flood",
 };
 
 /* ---------------- Communities by ZIP area ---------------- */
