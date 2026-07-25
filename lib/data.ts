@@ -1025,3 +1025,82 @@ export const medicalFacilities: { name: string; kind: string; lat: number; lng: 
     lng: -82.35382
   }
 ];
+
+/* ---------------- Current initiatives (news-sourced, July 2026) ---------------- */
+
+// Verified from news/government sources — a snapshot, not a registry. The
+// fiscal court / SOAR project list will make this section live-updating.
+export interface Initiative {
+  name: string;
+  lead: string;
+  scope: "County" | "Region" | "State/Federal";
+  status: "Completed" | "Active" | "Exploratory";
+  blurb: string;
+}
+
+export const initiatives: Initiative[] = [
+  {
+    name: "US 460 / Corridor Q completion",
+    lead: "KYTC · Federal Highway Administration",
+    scope: "County",
+    status: "Completed",
+    blurb:
+      "16.7-mile corridor from US 23 to the Virginia line opened Oct 30, 2025 — ~$800M over 35 years, one of the largest infrastructure investments in eastern Kentucky history.",
+  },
+  {
+    name: "Pikeville data center",
+    lead: "City of Pikeville · MD Squared Power LLC",
+    scope: "County",
+    status: "Exploratory",
+    blurb:
+      "MOU signed to explore a $250M+ first phase at Kentucky Enterprise Industrial Park — projected 190 construction jobs and 40 permanent positions above median wage.",
+  },
+  {
+    name: "Higher-ground housing communities",
+    lead: "Team Kentucky · federal partners",
+    scope: "Region",
+    status: "Active",
+    blurb:
+      "Eight high-ground sites building 500+ homes outside the flood plain across eastern Kentucky — roads, water, sewer, and broadband built on former mine land.",
+  },
+  {
+    name: "Recovery Ready Community",
+    lead: "Pike County · Commonwealth of Kentucky",
+    scope: "County",
+    status: "Active",
+    blurb:
+      "Pike County certified July 2026 — expanding access to addiction treatment, recovery support, and prevention services countywide.",
+  },
+  {
+    name: "AMLER mine-land redevelopment",
+    lead: "OSMRE · KY Energy & Environment Cabinet",
+    scope: "Region",
+    status: "Active",
+    blurb:
+      "$253M+ awarded across 112 projects since 2016 turning abandoned mine land into industrial sites, water infrastructure, and recreation — an ongoing pipeline Pike projects draw from.",
+  },
+  {
+    name: "Next-generation landfill",
+    lead: "Pike County Fiscal Court · private operator",
+    scope: "County",
+    status: "Active",
+    blurb:
+      "20+ year agreement signed Feb 2026 for a privately developed landfill taking up to 65,000 tons/yr as Ford Branch nears capacity — with active community discussion.",
+  },
+  {
+    name: "SOAR — Shaping Our Appalachian Region",
+    lead: "SOAR (HQ Pikeville)",
+    scope: "Region",
+    status: "Active",
+    blurb:
+      "Standing regional strategy across 54 counties: broadband adoption, remote work, downtown revitalization, and health — headquartered in downtown Pikeville.",
+  },
+  {
+    name: "ARC investment strategy",
+    lead: "Appalachian Regional Commission · KY DLG",
+    scope: "State/Federal",
+    status: "Active",
+    blurb:
+      "FY2026 strategy funding workforce, infrastructure, and entrepreneurship grants across Appalachian Kentucky — a primary source for county applications.",
+  },
+];
