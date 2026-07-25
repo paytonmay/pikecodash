@@ -1,26 +1,120 @@
 @import "tailwindcss";
 
+/*
+ * Pike County Dashboard — light civic theme: white + green forward,
+ * sharp 1px strokes, squared corners, bright yellow/red/blue accents
+ * where the data calls for them.
+ * Chart series colors are the validated light categorical palette
+ * (passes CVD checks on white; sub-3:1 slots ship with direct labels).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --page: #fafcf9;
+  --surface-1: #ffffff; /* chart / panel surface */
+  --surface-2: #f0f6ee; /* raised panel, table heads, tooltips */
+  --hairline: rgba(14, 59, 34, 0.16);
+  --hairline-strong: rgba(14, 59, 34, 0.34);
+
+  --text-primary: #0c1410;
+  --text-secondary: #45544c;
+  --text-muted: #75837a;
+
+  --accent: #0b9444; /* brand green — chrome only, never a chart series */
+  --accent-dim: rgba(11, 148, 68, 0.09);
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+  --series-red: #e34948;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --grid-hairline: rgba(11, 148, 68, 0.12);
+  --axis: rgba(12, 20, 16, 0.28);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-page: var(--page);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-ink: var(--text-primary);
+  --color-ink-2: var(--text-secondary);
+  --color-ink-3: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
+  --color-series-5: var(--series-5);
+  --font-sans: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display), var(--font-body), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Faint green survey-grid backdrop for the hero */
+.grid-backdrop {
+  background-image:
+    linear-gradient(var(--grid-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-hairline) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 0%, black 30%, transparent 75%);
+}
+
+/* Formerly a neon glow — now a crisp accent, no shadow */
+.glow-text {
+  text-shadow: none;
+  color: var(--text-primary);
+}
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+.panel:hover {
+  border-color: var(--accent);
+}
+
+/* Map marker dots — sharp ring, no glow */
+.map-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 9999px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(12, 20, 16, 0.4);
+  cursor: pointer;
+}
+
+.maplibregl-popup-content {
+  background: var(--surface-1) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 2px !important;
+  font-family: var(--font-body), system-ui, sans-serif;
+  padding: 10px 12px !important;
+  box-shadow: 0 4px 18px rgba(12, 20, 16, 0.14) !important;
+}
+.maplibregl-popup-tip {
+  border-top-color: var(--surface-1) !important;
+  border-bottom-color: var(--surface-1) !important;
+}
+.maplibregl-popup-close-button {
+  color: var(--text-secondary) !important;
+  font-size: 16px;
+  padding: 2px 6px !important;
 }

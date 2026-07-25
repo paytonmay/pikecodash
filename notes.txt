@@ -1,0 +1,39 @@
+Hello! This is a new text file created in /Users/paytonmay/pikecodash.
+
+A beautiful dashboard for Pike County Kentucky
+County Health Environmental, Systems, and Humans,
+
+Total population - age distribution 
+Number of schools k-12 their locations and test performances - their kids attendance and happiness other useful stats 
+
+Post secondary - every opportunity in the county from college, university, community college, training programs, etc. and their locations. 
+
+Property evaluations - property values per acre depending on location - commercial property, industrial property, residential property, as well as development directions. Tax bases in cities and the county.
+
+Elected officials for each of the towns plus registered voters and election dates time and positions. 
+
+Human Health - percentage of disability, percentage of major diseases diabetes, heart disease, obesity - etc- 
+
+Environmental health - landfill waste created weekly or daily or annually, water and stream quality, air quality, and waste diverted from the waste stream from recycling composting etc. 
+Would like to illustrate our active rivers and streams all listed and how many people live on a certain tributary (so they start to feel a since of responsibility for their watershed) 
+
+Public water systems, and gauges for drinking as we as waste water re entry - 
+
+Recreational community fields, tracks, parks, museums, locations for everything
+
+A dashboard, plus an interactive map. 
+
+Future visions / goals / active grants / applied for grants / active investments / and things to vote on. 
+
+Most progressive county in the country 
+
+Bio Diversity
+Animal Species
+Plant Species 
+Insect Species
+Endagered flora and fauna + 
+
+
+I like this design look a lot better. 
+Can you make the home page more like an active dashboard - think someone getting an understanding of the county at large almost like an operator - so more active/live data feeling. At the top in three cards current air quality, water quality, weather - so knowing that all systems are go no natural disasters going on - then current state of the land fill tons coming in weekly and how many tons more it can hold so a progress bar - then 2 other cards waste diverted - compostable in tons and plastic in tons - metals in tons. Active businesses, active industries - then current capital deployed and active projects - and active grant applications out - you can put place holders in any unknown for now - then lets do human health - total number of missed school days or work days due to illness - active cases of the top diseases - 
+and then the next priority under that might be total student enrollment in all the schools active - test scores and graduation rates - at high levels . Use place holder content anywhere you don't have data and just make it a color that we know is placeholder. 
