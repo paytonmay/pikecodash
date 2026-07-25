@@ -25,6 +25,7 @@ import {
   economyOps,
   healthOps,
   educationOps,
+  initiatives,
 } from "@/lib/data";
 import { TrendLine } from "@/components/charts/TrendLine";
 import { HBars } from "@/components/charts/HBars";
@@ -67,6 +68,7 @@ export default function Home() {
           </div>
           <nav className="hidden gap-4 text-[11px] uppercase tracking-wider text-ink-2 sm:flex">
             <a href="#ops" className="hover:text-accent">Ops</a>
+            <a href="#initiatives" className="hover:text-accent">Initiatives</a>
             <a href="#map" className="hover:text-accent">Map</a>
             <a href="#people" className="hover:text-accent">People</a>
             <a href="#education" className="hover:text-accent">Education</a>
@@ -167,6 +169,39 @@ export default function Home() {
             Civic & future ↓
           </a>
         </div>
+      </div>
+
+      {/* ---- Current initiatives ---- */}
+      <ClusterLabel
+        label="Current initiatives"
+        note="news-sourced snapshot · July 2026 — fiscal court & SOAR lists will make this live"
+      />
+      <div id="initiatives" className="grid scroll-mt-16 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {initiatives.map((init) => (
+          <div key={init.name} className="panel flex flex-col p-4">
+            <div className="mb-1.5 flex items-start justify-between gap-2">
+              <span
+                className={`rounded-sm border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${
+                  init.status === "Completed"
+                    ? "border-[#006300]/40 text-[#006300]"
+                    : init.status === "Exploratory"
+                      ? "border-[#eda100]/60 text-[#9a6b00]"
+                      : "border-accent/40 text-accent"
+                }`}
+              >
+                {init.status}
+              </span>
+              <span className="text-[10px] uppercase tracking-wider text-ink-3">
+                {init.scope}
+              </span>
+            </div>
+            <h3 className="text-sm font-semibold leading-snug">{init.name}</h3>
+            <p className="mt-0.5 text-[11px] text-ink-3">{init.lead}</p>
+            <p className="mt-1.5 text-xs leading-relaxed text-ink-2">
+              {init.blurb}
+            </p>
+          </div>
+        ))}
       </div>
 
       {/* ---- Row 3: health + learning pulse ---- */}
