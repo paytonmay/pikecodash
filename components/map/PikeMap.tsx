@@ -71,6 +71,33 @@ export function PikeMap({ heightClass = "h-[560px]" }: { heightClass?: string })
     map.addControl(new NavigationControl(), "top-right");
 
     map.on("load", async () => {
+      // Positron ships every river, creek, lake, and pond (with OSM names)
+      // styled nearly invisible — recolor its water layers to real blue.
+      const paint = (id: string, prop: string, value: unknown) => {
+        if (map.getLayer(id))
+          map.setPaintProperty(id, prop as never, value as never);
+      };
+      paint("water", "fill-color", "#a5d5f2");
+      paint("waterway", "line-color", "#3f9ad8");
+      paint("waterway", "line-width", [
+        "interpolate", ["linear"], ["zoom"],
+        8, 0.6, 11, 1.6, 14, 3, 16, 5,
+      ]);
+      for (const id of [
+        "waterway_label",
+        "watername_lake",
+        "watername_lake_line",
+      ]) {
+        paint(id, "text-color", "#1c5cab");
+        paint(id, "text-halo-color", "#ffffff");
+        paint(id, "text-halo-width", 1.2);
+      }
+      if (map.getLayer("waterway_label")) {
+        map.setLayoutProperty("waterway_label", "text-size", [
+          "interpolate", ["linear"], ["zoom"], 9, 10, 13, 13, 16, 16,
+        ]);
+      }
+
       const boundary = await fetch("/data/pike-boundary.json").then((r) =>
         r.json()
       );
