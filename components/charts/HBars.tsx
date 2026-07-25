@@ -51,7 +51,7 @@ export function HBars({
               </span>
             </div>
             <div
-              className={`${compact ? "h-1.5" : "h-2.5"} overflow-hidden rounded-[3px] bg-black/5`}
+              className={`${compact ? "h-1.5" : "h-2.5"} overflow-hidden rounded-[3px] bg-[var(--track)]`}
             >
               <div
                 className="h-full rounded-[3px] transition-[width] duration-700"
